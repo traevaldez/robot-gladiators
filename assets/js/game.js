@@ -113,8 +113,11 @@ var startGame = function() {
     startGame();
     endGame();
 
-    var shop = functin () {
-        console.log("entered the shop")
+    var shop = function () {
+        var shopOptionPrompt = window.prompt(
+            "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+        );
+        
     }
 }; 
 
