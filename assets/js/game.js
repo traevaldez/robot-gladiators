@@ -1,7 +1,7 @@
 // var playerName = 'Igor';
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 100;
-var playerAttack = 10;
+var playerHealth = 150;
+var playerAttack = 15;
 var playerMoney = 10;
 
 // enemy stats
@@ -11,8 +11,8 @@ var enemyAttack = 12;
 
 // fight function
 var fight = function(enemyName) {
-    // Alert players that they are starting the round
-    window.alert("Welcome to ROBOT GLADIATORS!");
+    // repeat and execture as long as the enemy-robot is alive
+    while(enemyHealth > 0) {
 
     // Ask player if they'd like to fight or run
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
@@ -64,9 +64,12 @@ var fight = function(enemyName) {
         window.alert("You need to pick a valid option. Try again.");
     }
 }
+}
 // end of fight function
 
 // run fight function to start game
 for(var i = 0; i < enemyNames.length; i++) {
-    fight(enemyNames[i]);
+    var pickedEnemyName = enemyNames[i];
+    enemyHealth = 50;
+    fight(pickedEnemyName);
 }
