@@ -82,6 +82,12 @@ var startGame = function() {
             var pickedEnemyName = enemyNames[i];
             enemyHealth = 50;
             fight(pickedEnemyName);
+            if (playerHealth > 0 && i < enemyNames.length -1) {
+                var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+                if (storeConfirm) {
+                shop();
+                }
+            }
         }
         else {
         window.alert('You have lost your robot in battle! It was a slaughter! GAME OVER!');
@@ -106,5 +112,9 @@ var startGame = function() {
     }
     startGame();
     endGame();
+
+    var shop = functin () {
+        console.log("entered the shop")
+    }
 }; 
 
