@@ -1,13 +1,17 @@
-// var playerName = 'Igor';
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
-var playerAttack = 15;
+var playerAttack = 10;
 var playerMoney = 10;
 
 // enemy stats
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
+
+console.log(enemyNames);
+console.log(enemyNames.length);
+console.log(enemyNames[0]);
+console.log(enemyNames[3]);
 
 // fight function
 var fight = function(enemyName) {
@@ -29,15 +33,10 @@ var fight = function(enemyName) {
         break;
         }
     }
-    
-    // If player chooses to fight, fight
-    if (promptFight === "fight" || promptFight === "FIGHT") {
-    // remove enemy's health by subtracting the amount set in the playerAttack variable
-        enemyHealth = enemyHealth - playerAttack
-        console.log(
-            playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
-        );
-        }
+    enemyHealth = enemyHealth - playerAttack
+    console.log(
+        playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+    );
 
 // check enemy's health
     if (enemyHealth <= 0) {
@@ -45,6 +44,7 @@ var fight = function(enemyName) {
 
     // award player money for winning
     playerMoney = playerMoney + 20;
+    
     //leave while() loop since enemy is dead
     break;
     } else {
@@ -65,15 +65,46 @@ var fight = function(enemyName) {
     } else {
         window.alert(playerName + " still has " + playerHealth + " health left!");  
     } 
-    }
-    
-};
-
-// end of fight function
+    } // end of while loop
+}; // end of fight function
 
 // run fight function to start game
-for(var i = 0; i < enemyNames.length; i++) {
-    var pickedEnemyName = enemyNames[i];
-    enemyHealth = 50;
-    fight(pickedEnemyName);
+var startGame = function() {
+    //reset player stats
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
 }
+
+    for(var i = 0; i < enemyNames.length; i++) {
+        if (playerHealth > 0) {
+            window.alert("Welcome to ROBOT GLADIATORS! Round " + (i + 1));
+            var pickedEnemyName = enemyNames[i];
+            enemyHealth = 50;
+            fight(pickedEnemyName);
+        }
+        else {
+        window.alert('You have lost your robot in battle! It was a slaughter! GAME OVER!');
+        }
+    }
+
+    function endGame() {
+    // if player is still alive, player wins!
+    if (playerHealth > 0) {
+        window.alert("Great job! You've survived the game! You now have a score of " + playerMoney + ".");
+    } else {
+        window.alert("You've lost your robot in battle!");
+    }
+
+    //ask player if they'd like to play again
+    var playAgainConfirm = window.confirm("Would you like to play again?");
+    if (playAgainConfirm) {
+        //restart the game
+        startGame();
+    } else {
+        window.alert("Thank you for playing ROBOT GLADIATORS! Come back soon!");
+    }
+    startGame();
+    endGame();
+}; 
+
