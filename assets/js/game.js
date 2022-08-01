@@ -1,12 +1,15 @@
+/*GAME FUNCTIONS */
 
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
 
-// fight function
+    return value;
+};
 
 var fightOrSkip = function() {
     // ask player if they'd like to fight or skip using fightOrSkip function
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-
-    //Enter Conditional recursive function call here!
 
     if (promptFight === "" || promptFight === null) {
         window.alert("You need to provide a valid answer! Please try again!");
@@ -27,14 +30,23 @@ var fightOrSkip = function() {
             return true;
         }
     }
+    return false;
 }
 var fight = function(enemy) {
     console.log(enemy);
-    while(playerInfo.health > 0 && enemy.health > 0) {
+    var isPlayerTurn = true;
+
+    if (Math.random() > 0.5){
+        isPlayerTurn = false;
+    }
+
+    while (playerInfo.health > 0 && enemy.health > 0) {
+        if (isPlayerTurn) {
         // Ask player if they'd like to fight or run
-        if fightOrSkip (){
+        if (fightOrSkip()){
             break;
-        }
+        } 
+    
     
 
     //remove enemy's health by subtracting the amount set in the playerInfo.attack variable
@@ -74,8 +86,10 @@ var fight = function(enemy) {
         window.alert(playerInfo.name + " still has " + playerInfo.health + " health left!");  
     } 
 
-    }; // end of while loop
+    } // end of while loop
+    isPlayerTurn = !isPlayerTurn;
 }// end of fight function
+};
 
 // run fight function to start game
 var startGame = function() {
@@ -123,12 +137,16 @@ var startGame = function() {
 var endGame = function(){
     window.alert("The game has now ended. Let's see how you did!");
 
-    // if player is still alive, player wins!
-    if (playerInfo.health > 0) {
-        window.alert("Great job! You've survived the game! You now have a score of " + playerInfo.money + ".");
-    } else {
-        window.alert("You've lost your robot in battle!");
+    var highScore = localStorage.getItem("highscore");
+    if (highScore ===null ) {
+        highScore = 0;
     }
+
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+    }
+
 
     //ask player if they'd like to play again
     var playAgainConfirm = window.confirm("Would you like to play again?");
@@ -140,24 +158,21 @@ var endGame = function(){
         window.alert("Thank you for playing ROBOT GLADIATORS! Come back soon!");
     }
 };
-    
+
     var shop = function () {
         var shopOptionPrompt = window.prompt(
-            "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+            "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 for 'REFILL', 2 for 'UPGRADE', or 3 to 'LEAVE'."
         );
-
+    shopOptionPrompt = parseInt(shopOptionPrompt);
     // use swith case to carry out action
     switch (shopOptionPrompt) {
-        case 'REFILL':
-        case 'refill':
+        case 1:
             playerInfo.refillHealth();
             break;
-        case 'UPGRADE':
-        case 'upgrade':
+        case 2:
             playerInfo.upgradeAttack();
             break;
-        case 'LEAVE':
-        case 'leave':
+        case 3:
                 window.alert('Leaving the store.');
 
             // do nothing, so function will end
@@ -171,11 +186,6 @@ var endGame = function(){
         }
     };
 
-    var randomNumber = function(min, max) {
-        var value = Math.floor(Math.random() * (max - min + 1) + min);
-
-        return value;
-    };
 
 // player stats
 getPlayerName = function(){
