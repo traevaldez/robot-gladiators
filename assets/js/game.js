@@ -1,25 +1,36 @@
 
 
 // fight function
+
+var fightOrSkip = function() {
+    // ask player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+
+    //Enter Conditional recursive function call here!
+
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again!");
+        return fightOrSkip();
+    }
+
+    // if player picks skip
+    if (promptFight === "skip" || promptFight === "SKIP") {
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight! Goodbye!");
+            playerInfo.money = playerInfo.money - 10;
+            shop ();
+        }
+    }
+}
 var fight = function(enemy) {
     console.log(enemy);
     while(playerInfo.health > 0 && enemy.health > 0) {
         // Ask player if they'd like to fight or run
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
-    // if player chooses to 'skip' confirm and then stop the loop
-        if (promptFight === "skip" || promptFight === "SKIP") { 
-            // confirm player wants to skip
-        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-    // if yes (true), leave fight
-        if (confirmSkip) {
-        window.alert(playerInfo.name + " has decided to skip this fight! GOODBYE!");
-        // Subtract money from playerInfo.money for skipping
-        playerInfo.money = Math.max(0, playerInfo.money - 10);
-        console.log("playerInfo.money", playerInfo.money);
-        break;
-        }
+        fightOrSkip ();
     }
 
     //remove enemy's health by subtracting the amount set in the playerInfo.attack variable
@@ -59,8 +70,8 @@ var fight = function(enemy) {
     } else {
         window.alert(playerInfo.name + " still has " + playerInfo.health + " health left!");  
     } 
-    } // end of while loop
-}; // end of fight function
+    }; // end of while loop
+ // end of fight function
 
 // run fight function to start game
 var startGame = function() {
